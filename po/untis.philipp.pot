@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the untis.philipp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: untis.philipp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-29 11:12+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. TRANSLATORS: Format of the day in timetable.
+#: ../qml/Lesson.qml:13 ../qml/Lesson.qml:19
+msgid "h:mm"
+msgstr ""
+
+#: ../qml/Main.qml:90
+msgid "Previous day"
+msgstr ""
+
+#: ../qml/Main.qml:91
+msgid "Go to the previous day."
+msgstr ""
+
+#: ../qml/Main.qml:103
+msgid "Next day"
+msgstr ""
+
+#: ../qml/Main.qml:104
+msgid "Go to the next day."
+msgstr ""
+
+#: ../qml/Main.qml:116
+msgid "Settings"
+msgstr ""
+
+#: ../qml/Main.qml:117
+msgid "Open the settings."
+msgstr ""
+
+#: ../qml/Main.qml:123
+msgid "Clear cache"
+msgstr ""
+
+#: ../qml/Main.qml:124
+msgid "Delete the cached data."
+msgstr ""
+
+#: ../qml/Main.qml:130
+msgid "Reload day"
+msgstr ""
+
+#: ../qml/Main.qml:131
+msgid "Reload the current day."
+msgstr ""
+
+#: ../qml/Main.qml:140
+msgid "Fetch cache"
+msgstr ""
+
+#: ../qml/Main.qml:141
+msgid "Fetch the cache manually (could help when bugs appear)."
+msgstr ""
+
+#. TRANSLATORS: Format of the day in header.
+#: ../qml/Main.qml:152
+msgid "d.M.yy"
+msgstr ""
+
+#: ../qml/Main.qml:153 untis.desktop.in.h:1
+msgid "Untis"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:16
+msgid "Server:"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:22
+msgid "xxxx.webuntis.com"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:31
+msgid "School:"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:37
+msgid "School"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:45
+msgid "Request will be send to:"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:60
+msgid "Client name:"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:66
+msgid "Client"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:73
+msgid "Username:"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:79
+msgid "Username"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:86
+msgid "Password:"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:92
+msgid "Password"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:99
+msgid "Show Log"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:105
+msgid "Show TimeStamp"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:111
+msgid "Request at startup"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:119
+msgid "Close"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:123
+msgid "Save"
+msgstr ""
+
+#: ../qml/SettingsDialog.qml:137
+msgid "Log enabled"
+msgstr ""
+
+#: ../qml/webUntisRequests.js:30
+msgid "NO MATCH"
+msgstr ""
+
+#: ../qml/webUntisRequests.js:109
+msgid "There are no lessons today."
+msgstr ""
+
+#: ../qml/webUntisRequests.js:262
+msgid "Logout completed!"
+msgstr ""
+
+#: ../qml/webUntisRequests.js:276
+msgid "No username set"
+msgstr ""
+
+#: ../qml/webUntisRequests.js:279
+msgid "No password set"
+msgstr ""
+
+#: ../qml/webUntisRequests.js:282
+msgid "No school set"
+msgstr ""
+
+#: ../qml/webUntisRequests.js:285
+msgid "No server set"
+msgstr ""

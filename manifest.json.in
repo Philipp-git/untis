@@ -1,0 +1,15 @@
+{
+    "name": "untis.philipp",
+    "description": "See you WebUntis timetable in a nativ app.",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Untis",
+    "hooks": {
+        "untis": {
+            "apparmor": "untis.apparmor",
+            "desktop":  "untis.desktop"
+        }
+    },
+    "version": "1.0.0",
+    "maintainer": "Philipp Rochlitz <philipp@rochlitz.info>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
