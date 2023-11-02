@@ -9,7 +9,7 @@
             "desktop":  "untis.desktop"
         }
     },
-    "version": "1.0.0",
+    "version": "0.2.0",
     "maintainer": "Philipp Rochlitz <philipp@rochlitz.info>",
     "framework" : "@CLICK_FRAMEWORK@"
 }

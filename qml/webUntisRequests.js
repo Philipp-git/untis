@@ -1,13 +1,4 @@
-const STATES = {
-    loggedOut: 0,
-    pendingLogin: 1,
-    loggedIn: 2,
-    pendingLogout: 3
-};
-var state = STATES.loggedOut
-//TODO: Login and logout are also requests and should be added
-var activeRequests = 0
-var id = 0
+let id = 0
 function getId() {
     return id++
 }
@@ -20,8 +11,8 @@ function log(msg) {
 }
 
 function iterateOver(id, Obj) {
-    for (var i in Obj) {
-        var it = Obj[i]
+    for (const i in Obj) {
+        const it = Obj[i]
         if (it.id === id) {
             return it.longName ? it.name + " (" + it.longName + ")" : it.name
         }
@@ -31,38 +22,38 @@ function iterateOver(id, Obj) {
 }
 
 function getDataByIds(ids, objectString) {
-    var object = {}
+    let object = {}
     if (objectString !== ""){
         object = JSON.parse(objectString)
     }
 
-    var result = ""
-    for (var i in ids) {
+    let result = ""
+    for (const i in ids) {
         result = result + " " + iterateOver(ids[i].id, object)
     }
     return result
 }
 
 function getTime(date, time) {
-    date = String(date)
-    time = String(time)
-    if (time.length === 3) {
-        time = "0" + time
+    const _date = String(date)
+    let _time = String(time)
+    if (_time.length === 3) {
+        _time = "0" + _time
     }
-    var result = new Date(
-        date.substring(0, 4),
+    const result = new Date(
+        _date.substring(0, 4),
         //Month must be corrected to start with 0
-        parseInt(date.substring(4, 6)) - 1,
-        date.substring(6, 8),
-        time.substring(0, 2),
-        time.substring(2, 4)
+        parseInt(_date.substring(4, 6)) - 1,
+        _date.substring(6, 8),
+        _time.substring(0, 2),
+        _time.substring(2, 4)
     )
     return result
 }
 
 function getColorByCode(code){
-    var foreColor = "000000";
-    var backColor = "f49f25";
+    let foreColor = "000000";
+    let backColor = "f49f25";
     //TODO: This code is hard-coded, should be changed
     switch (code){
     case ("cancelled"):
@@ -78,30 +69,28 @@ function getColorByCode(code){
         backColor =  "802020"
         break;
     }
-
-
     return [foreColor,backColor]
 }
 
 function handleTimetableData(result) {
-    for (var i in result) {
+    for (const i in result) {
         log(`Add entry ${i}: ${JSON.stringify(result[i])}`)
-        var entry = result[i]
-        var dayEntry = {
-            "id": entry.id,
-            "foreColor": "#" + getColorByCode(entry.code)[0],
-            "backColor": "#" + getColorByCode(entry.code)[1],
-            "date": entry.date,
-            "startTime": getTime(entry.date, entry.startTime),
-            "endTime": getTime(entry.date, entry.endTime),
-            "klassen": entry.kl ? getDataByIds(entry.kl, klassen) : "",
-            "teacher": entry.te ? getDataByIds(entry.te, teacher) : "",
-            "subject": entry.su ? getDataByIds(entry.su, subjects) : "",
-            "room": entry.ro ? getDataByIds(entry.ro, rooms) : "",
-            "code": entry.code ? entry.code : "",
-            "lstext": entry.lstype ? entry.lstype : "",
-            "statflags": entry.statflags ? entry.statflags : "",
-            "activityType": entry.activityType ? entry.activityType : ""
+        const entry = result[i]
+        const dayEntry = {
+            id: entry.id,
+            foreColor: "#" + getColorByCode(entry.code)[0],
+            backColor: "#" + getColorByCode(entry.code)[1],
+            date: entry.date,
+            startTime: getTime(entry.date, entry.startTime),
+            endTime: getTime(entry.date, entry.endTime),
+            klassen: entry.kl ? getDataByIds(entry.kl, klassen) : "",
+            teacher: entry.te ? getDataByIds(entry.te, teacher) : "",
+            subject: entry.su ? getDataByIds(entry.su, subjects) : "",
+            room: entry.ro ? getDataByIds(entry.ro, rooms) : "",
+            code: entry.code ? entry.code : "",
+            lstext: entry.lstype ? entry.lstype : "",
+            statflags: entry.statflags ? entry.statflags : "",
+            activityType: entry.activityType ? entry.activityType : ""
         }
         appendInOrder(dayEntry)
     }
@@ -110,243 +99,208 @@ function handleTimetableData(result) {
     }
 }
 
+//TODO: append sorted by time. Maybe in qml?
 function appendInOrder(entry) {
     periodsModel.append(entry)
 }
 
 function addFakeEntry(text) {
-    var fakeEntry = {
-        "id": 0,
-        "foreColor": "#" + getColorByCode("message")[0],
-        "backColor": "#" + getColorByCode("message")[1],
-        "date": 0,
-        "startTime": getTime("00000000", "0000"),
-        "endTime": getTime("00000000", "0000"),
-        "klassen": "",
-        "teacher": "",
-        "subject": text,
-        "room": "",
-        "code": "",
-        "lstext": "",
-        "statflags": "",
-        "activityType": ""
+    const fakeEntry = {
+        id: 0,
+        foreColor: "#" + getColorByCode("message")[0],
+        backColor: "#" + getColorByCode("message")[1],
+        date: 0,
+        startTime: getTime("00000000", "0000"),
+        endTime: getTime("00000000", "0000"),
+        klassen: "",
+        teacher: "",
+        subject: text,
+        room: "",
+        code: "",
+        lstext: "",
+        statflags: "",
+        activityType: ""
     }
     appendInOrder(fakeEntry)
     log("Add fake entry: " + text)
 }
 
-function Timer() {
-    return Qt.createQmlObject("import QtQuick 2.0; Timer {}", root);
-}
-
-function delay(delayTime, _callBack) {
-    var timer = new Timer();
-    timer.interval = delayTime;
-    timer.repeat = false;
-    timer.triggered.connect(_callBack);
-    timer.start();
-}
-
-//TODO: Unreadable should be changed
-function sendRequest(method, params, _callBack) {
-    if (state === STATES.loggedOut && method !== "authenticate") {
-        requireLogin(function () {
-            sendRequest(method, params, _callBack)
-        })
+function getLoginParams(){
+    return {
+        user: user,
+        password: password,
+        client: client
     }
-    else {
-        if (method !== "authenticate" || method !== "logout") {
-            activeRequests++
-            nextDayAction.enabled = false;
-            previousDayAction.enabled = false;
+}
+
+function sendRequest(method, params){
+    let promise = new Promise(function(resolve, reject){
+        //Skip request when already logged in
+        //TODO: The sendRequest should not even be called when already logged in
+        if (sessionId !== "" && method === "authenticate"){
+            resolve({
+                sessionId: sessionId,
+                personType: personType,
+                personId: personId})
+            return
         }
 
-        var request = new XMLHttpRequest()
+        const request = new XMLHttpRequest()
         request.open("POST", serverUrl, true)
         request.setRequestHeader("Content-Type", "application/json");
         if (sessionId !== "") request.setRequestHeader("JSESSIONID", sessionId)
-
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
-                if (method !== "authenticate" || method !== "logout") {
-                    activeRequests--
-                    if (activeRequests == 0) {
-                        requireLogout()
-                        nextDayAction.enabled = true;
-                        previousDayAction.enabled = true;
-                    }
-                }
-                if (request.status && request.status == 200) {
-                    var result = JSON.parse(request.responseText)
+                if (request.status && request.status === 200) {
+                    const result = JSON.parse(request.responseText)
                     if (result.error) {
-                        log("API Error: " + result.error.message)
+                        reject("API Error: " + result.error.message)
                     } else {
-                        _callBack(result.result)
+                        resolve(result.result)
                     }
                 } else {
-                    log("HTTP Error: " + request.status + request.statusText)
-                    if (method === "authenticate") state = STATES.loggedOut
-                    else if (method === "logout") state = STATES.loggedIn
+                    reject("HTTP Error: " + request.status + request.statusText)
                 }
             }
         }
-        var data = JSON.stringify({
-            "id": getId(),
-            "method": method,
-            "params": params,
-            "jsonrpc": "2.0"
-        })
+        const data = JSON.stringify({id: getId(), method: method, params: params, jsonrpc: "2.0"})
         if (method === "authenticate") log("SEND {authentication data}")
         else log("SEND " + data)
         request.send(data)
-    }
+    })
+    return promise
 }
 
-function getLoginParams(){
-    return {
-        "user": user,
-        "password": password,
-        "client": client
-    }
-}
-
-function requireLogin(_callBack) {
-    switch (state) {
-        case STATES.loggedOut:
-            state = STATES.pendingLogin
-            sendRequest("authenticate", getLoginParams(), function (result) {
-                sessionId = result.sessionId
-                personType = result.personType
-                personId = result.personId
-                state = STATES.loggedIn
-                _callBack()
-            })
-            break;
-        case STATES.pendingLogin:
-            log("Loggin pending, wait")
-            delay(100, function () {
-                requireLogin(function () {
-                    _callBack();
-                })
-            })
-            break;
-        case STATES.loggedIn:
-            _callBack()
-            break;
-        case STATES.pendingLogout:
-            log("Loggout pending, wait")
-            delay(100, function () {
-                requireLogin(function () {
-                    _callBack();
-                })
-            })
-            break;
-    }
-}
-
-function requireLogout() {
-    switch (state) {
-        case STATES.loggedOut:
-            break;
-        case STATES.pendingLogin:
-            //Logout will be triggered by another function
-            break;
-        case STATES.loggedIn:
-            state = STATES.pendingLogout
-            sendRequest("logout", "{}", function (result) {
-                if (result === null) {
-                    sessionId = ""
-                    personType = ""
-                    personId = ""
-                    state = STATES.loggedOut
-                    log(i18n.tr("Logout completed!"))
-                } else {
-                    log("ERROR: logout failed: " + JSON.stringify(result))
-                    state = STATES.loggedIn
-                }
-            })
-            break;
-        case STATES.pendingLogout:
-            break;
-    }
-}
-
-function dataProvided(){
+//TODO: 0/1 -> true/false
+function isDataProvided(){
     if (user === "") {
         log(i18n.tr("No username set"))
         return 1
-    } else if (password === "") {
+    }if (password === "") {
         log(i18n.tr("No password set"))
         return 1
-    } else if (school === "") {
+    }if (school === "") {
         log(i18n.tr("No school set"))
         return 1
-    } else if (server === "") {
+    }if (server === "") {
         log(i18n.tr("No server set"))
         return 1
     }
     return 0
 }
 
-function getDay() {
-    if (dataProvided() === 1){
+function logout(attempt = 0){
+    if (attempt <= 3){
+        attempt++
+        if (sessionId === ""){
+            return
+        }
+        sendRequest("logout", "{}").then(
+            function (result) {
+                sessionId = ""
+                personType = ""
+                personId = ""
+                log("Logout done!")
+            },
+            function (error){
+                console.log("error:" + error)
+                logout(attempt)
+            })
+    }
+}
+
+function getDay(){
+    if (isDataProvided() === 1){
         return
     }
-    loadOtherData()
-    requireLogin(function () {
-        //Must be logged in to get personId etc.
-        var param = {
-            "id": personId,
-            "type": personType,
-            "startDate": selectedDate.toLocaleDateString(Qt.locale(), "yyyyMMdd"),// eg. "20231016",
-            "endDate": selectedDate.toLocaleDateString(Qt.locale(), "yyyyMMdd")
-        }
-        sendRequest("getTimetable", param, function (result) {
-            handleTimetableData(result)
-            if (showTimestamp) {
-                timestampLabel.text = new Date().toLocaleString(Locale.ShortFormat)
-            }
+    loadOtherData().then(
+        function(){
+            sendRequest("authenticate", getLoginParams()).then(
+                function (result) {
+                    sessionId = result.sessionId
+                    personType = result.personType
+                    personId = result.personId
+                    const param = {
+                        id: personId,
+                        type: personType,
+                        startDate: selectedDate.toLocaleDateString(Qt.locale(), "yyyyMMdd"),// eg. "20231016",
+                        endDate: selectedDate.toLocaleDateString(Qt.locale(), "yyyyMMdd")
+                    }
+                    sendRequest("getTimetable", param,).then(
+                        function (result){
+                            handleTimetableData(result)
+                            if (showTimestamp) {
+                                timestampLabel.text = new Date().toLocaleString(Locale.ShortFormat)
+                            }
+                            logout()},
+                        function (error){
+                            console.log(error)
+                            logout()
+                        }
+                    )},
+                function (error){
+                    console.log(error)
+                })
+        },
+        function (error){
+            log("Fetching cache failed")
         })
-    })
 }
 
 function loadOtherData() {
-    requireLogin(function () {
-        if (rooms == "") {
-            sendRequest("getRooms", "{}", function (result) {
-                log("Updateing rooms")
-                rooms = JSON.stringify(result)
+    let promise = new Promise(function(resolve, reject){
+        sendRequest("authenticate", getLoginParams()).then(
+            function (result){
+                sessionId = result.sessionId
+                personType = result.personType
+                personId = result.personId
+                if (rooms === "") {
+                    log("Updateing rooms")
+                    sendRequest("getRooms", "{}").then(
+                        function (result) {rooms = JSON.stringify(result)},
+                        function (error) {log(error)}
+                    )
+                }
+                if (subjects === "") {
+                    log("Updateing subjects")
+                    sendRequest("getSubjects", "{}").then(
+                        function (result) {subjects = JSON.stringify(result)},
+                        function (error) {log(error)}
+                    )
+                }
+                if (teacher === "") {
+                    log("Updateing teachers")
+                    sendRequest("getTeachers", "{}").then(
+                        function (result) {teacher = JSON.stringify(result)},
+                        function (error) {log(error)}
+                    )
+                }
+                if (klassen === "") {
+                    log("Updateing Klassen")
+                    sendRequest("getKlassen", "{}").then(
+                        function (result) {klassen = JSON.stringify(result)},
+                        function (error) {log(error)}
+                    )
+                }
+                if (statusData === ""){
+                    log("Updateing statusData")
+                    sendRequest("getStatusData", "{}").then(
+                        function (result) {statusData = JSON.stringify(result)},
+                        function (error) {log(error)}
+                    )
+                }
+                //TODO: resolve when all functions returned true
+                resolve()
+            },
+            function (error){
+                console.log(error)
+                reject(error)
             })
-        }
-        if (subjects == "") {
-            sendRequest("getSubjects", "{}", function (result) {
-                log("Updateing subjects")
-                subjects = JSON.stringify(result)
-            })
-        }
-        if (teacher == "") {
-            sendRequest("getTeachers", "{}", function (result) {
-                log("Updateing teachers")
-                teacher = JSON.stringify(result)
-            })
-        }
-        if (klassen == "") {
-            sendRequest("getKlassen", "{}", function (result) {
-                log("Updateing klassen")
-                klassen = JSON.stringify(result)
-            })
-        }
-        if (statusData == ""){
-            sendRequest("getStatusData", "{}", function (result) {
-                log("Updateing statusData")
-                statusData = JSON.stringify(result)
-            })
-        }
     })
+    return promise
 }
 
 function clearOtherData() {
-    console.log(statusData)
     rooms = "";
     subjects = "";
     teacher = "";
