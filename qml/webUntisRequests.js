@@ -102,6 +102,7 @@ function handleTimetableData(result) {
 //TODO: append sorted by time. Maybe in qml?
 function appendInOrder(entry) {
     periodsModel.append(entry)
+    listView.listModelSort(periodsModel, (a,b) => (a.startTime - b.startTime))
 }
 
 function addFakeEntry(text) {

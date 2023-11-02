@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: untis.philipp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-02 13:16+0000\n"
+"POT-Creation-Date: 2023-11-02 13:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,60 +22,59 @@ msgstr ""
 msgid "h:mm"
 msgstr ""
 
-#: ../qml/Main.qml:90
+#: ../qml/Main.qml:91
 msgid "Previous day"
 msgstr ""
 
-#: ../qml/Main.qml:91
+#: ../qml/Main.qml:92
 msgid "Go to the previous day."
 msgstr ""
 
-#: ../qml/Main.qml:103
+#: ../qml/Main.qml:104
 msgid "Next day"
 msgstr ""
 
-#: ../qml/Main.qml:104
+#: ../qml/Main.qml:105
 msgid "Go to the next day."
 msgstr ""
 
-#: ../qml/Main.qml:116
+#: ../qml/Main.qml:117
 msgid "Settings"
 msgstr ""
 
-#: ../qml/Main.qml:117
+#: ../qml/Main.qml:118
 msgid "Open the settings."
 msgstr ""
 
-#: ../qml/Main.qml:123
+#: ../qml/Main.qml:124
 msgid "Clear cache"
 msgstr ""
 
-#: ../qml/Main.qml:124
+#: ../qml/Main.qml:125
 msgid "Delete the cached data."
 msgstr ""
 
-#: ../qml/Main.qml:130
+#: ../qml/Main.qml:131
 msgid "Reload day"
 msgstr ""
 
-#: ../qml/Main.qml:131
+#: ../qml/Main.qml:132
 msgid "Reload the current day."
 msgstr ""
 
-#: ../qml/Main.qml:140
+#: ../qml/Main.qml:141
 msgid "Fetch cache"
 msgstr ""
 
-#: ../qml/Main.qml:141
+#: ../qml/Main.qml:143
 msgid "Fetch the cache manually (could help when bugs appear)."
 msgstr ""
 
-#. TRANSLATORS: Format of the day in header.
-#: ../qml/Main.qml:152
+#: ../qml/Main.qml:155
 msgid "d.M.yy"
 msgstr ""
 
-#: ../qml/Main.qml:153 untis.desktop.in.h:1
+#: ../qml/Main.qml:156 untis.desktop.in.h:1
 msgid "Untis"
 msgstr ""
 
@@ -155,18 +154,18 @@ msgstr ""
 msgid "There are no lessons today."
 msgstr ""
 
-#: ../qml/webUntisRequests.js:177
+#: ../qml/webUntisRequests.js:178
 msgid "No username set"
 msgstr ""
 
-#: ../qml/webUntisRequests.js:180
+#: ../qml/webUntisRequests.js:181
 msgid "No password set"
 msgstr ""
 
-#: ../qml/webUntisRequests.js:183
+#: ../qml/webUntisRequests.js:184
 msgid "No school set"
 msgstr ""
 
-#: ../qml/webUntisRequests.js:186
+#: ../qml/webUntisRequests.js:187
 msgid "No server set"
 msgstr ""

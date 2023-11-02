@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2023  Philipp Rochlitz
  *
@@ -44,6 +45,7 @@ MainView {
     property bool showTimestamp: true
     property bool startupRequest: true
 
+    //TODO: put into js
     property string sessionId: ""
     property string personType: ""
     property string personId: ""
@@ -138,7 +140,8 @@ MainView {
         id: fetchCacheAction
         iconName: "save-as"
         text: i18n.tr("Fetch cache")
-        description: i18n.tr("Fetch the cache manually (could help when bugs appear).")
+        description: i18n.tr(
+                         "Fetch the cache manually (could help when bugs appear).")
         onTriggered: {
             UntisRequest.loadOtherData()
         }
@@ -149,7 +152,8 @@ MainView {
         header: PageHeader {
             id: header
             //TRANSLATORS: Format of the day in header.
-            subtitle: selectedDate.toLocaleDateString(Qt.locale(), i18n.tr("d.M.yy"))
+            subtitle: selectedDate.toLocaleDateString(Qt.locale(),
+                                                      i18n.tr("d.M.yy"))
             title: i18n.tr("Untis")
             ActionBar {
                 id: controlActionBar
@@ -173,6 +177,7 @@ MainView {
             }
         }
         ListView {
+            id: listView
             anchors {
                 top: header.bottom
                 left: parent.left
@@ -181,6 +186,22 @@ MainView {
             }
             model: periodsModel
             delegate: Lesson {}
+
+            function listModelSort(listModel, compareFunction) {
+                let indexes = [...Array(listModel.count).keys()]
+                indexes.sort((a, b) => compareFunction(listModel.get(a),
+                                                       listModel.get(b)))
+                let sorted = 0
+                while (sorted < indexes.length && sorted === indexes[sorted])
+                    sorted++
+                if (sorted === indexes.length)
+                    return
+                for (var i = sorted; i < indexes.length; i++) {
+                    listModel.move(indexes[i], listModel.count - 1, 1)
+                    listModel.insert(indexes[i], {})
+                }
+                listModel.remove(sorted, indexes.length - sorted)
+            }
         }
         Label {
             id: timestampLabel
