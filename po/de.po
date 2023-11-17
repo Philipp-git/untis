@@ -1,0 +1,172 @@
+# German translations for untis.philipp package.
+# Copyright (C) 2023 THE untis.philipp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the untis.philipp package.
+# Philipp Rochlitz <philipp@rochlitz.info>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: untis.philipp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-17 22:28+0100\n"
+"PO-Revision-Date: 2023-11-17 23:10+0100\n"
+"Last-Translator: Philipp Rochlitz <philipp@rochlitz.info>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. TRANSLATORS: Format of the day in timetable.
+#: ../qml/Lesson.qml:13 ../qml/Lesson.qml:19
+msgid "h:mm"
+msgstr "h:mm"
+
+#: ../qml/Main.qml:88
+msgid "Previous day"
+msgstr "Vorheriger Tag"
+
+#: ../qml/Main.qml:89
+msgid "Go to the previous day."
+msgstr "Gehe zum vorheriger Tag."
+
+#: ../qml/Main.qml:102
+msgid "Next day"
+msgstr "Nächster Tag"
+
+#: ../qml/Main.qml:103
+msgid "Go to the next day."
+msgstr "Gehe zum nächsten Tag."
+
+#: ../qml/Main.qml:115
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: ../qml/Main.qml:116
+msgid "Open the settings."
+msgstr "Öffne die Einstellungen."
+
+#: ../qml/Main.qml:122
+msgid "Clear cache"
+msgstr "Cache leeren"
+
+#: ../qml/Main.qml:123
+msgid "Delete the cached data."
+msgstr "Die gecachten Daten löschen."
+
+#: ../qml/Main.qml:129
+msgid "Reload day"
+msgstr "Tag neuladen"
+
+#: ../qml/Main.qml:130
+msgid "Reload the current day."
+msgstr "Lade den momentanen Tag neu."
+
+#: ../qml/Main.qml:139
+msgid "Fetch cache"
+msgstr "Cache abrufen"
+
+#: ../qml/Main.qml:141
+msgid "Fetch the cache manually (could help when bugs appear)."
+msgstr "Den Cache Manuel laden (kann helfen, wenn Fehler auftreten)."
+
+#: ../qml/Main.qml:153
+msgid "d.M.yy"
+msgstr "d.M.yy"
+
+#: ../qml/Main.qml:154 untis.desktop.in.h:1
+msgid "Untis"
+msgstr "Untis"
+
+#: ../qml/SettingsDialog.qml:16
+msgid "Server:"
+msgstr "Server:"
+
+#: ../qml/SettingsDialog.qml:22
+msgid "xxxx.webuntis.com"
+msgstr "xxxx.webunts.com"
+
+#: ../qml/SettingsDialog.qml:31
+msgid "School:"
+msgstr "Schule"
+
+#: ../qml/SettingsDialog.qml:37
+msgid "School"
+msgstr "Schule"
+
+#: ../qml/SettingsDialog.qml:45
+msgid "Request will be send to:"
+msgstr "Anfragen werden gesendet nach:"
+
+#: ../qml/SettingsDialog.qml:60
+msgid "Client name:"
+msgstr "Client Name:"
+
+#: ../qml/SettingsDialog.qml:66
+msgid "Client"
+msgstr "Client"
+
+#: ../qml/SettingsDialog.qml:73
+msgid "Username:"
+msgstr "Benutzername:"
+
+#: ../qml/SettingsDialog.qml:79
+msgid "Username"
+msgstr "Benutzername"
+
+#: ../qml/SettingsDialog.qml:86
+msgid "Password:"
+msgstr "Passwort:"
+
+#: ../qml/SettingsDialog.qml:92
+msgid "Password"
+msgstr "Passwort"
+
+#: ../qml/SettingsDialog.qml:99
+msgid "Show Log"
+msgstr "Zeige Log"
+
+#: ../qml/SettingsDialog.qml:105
+msgid "Show TimeStamp"
+msgstr "Zeige Zeitstempel"
+
+#: ../qml/SettingsDialog.qml:111
+msgid "Request at startup"
+msgstr "Beim staten anfrage stellen"
+
+#: ../qml/SettingsDialog.qml:119
+msgid "Close"
+msgstr "Schlißen"
+
+#: ../qml/SettingsDialog.qml:123
+msgid "Save"
+msgstr "Speichern"
+
+#: ../qml/SettingsDialog.qml:137
+msgid "Log enabled"
+msgstr "Log Aktiviert"
+
+#: ../qml/webUntisRequests.js:27
+msgid "NO MATCH"
+msgstr "NICHT GEFUNDEN"
+
+#: ../qml/webUntisRequests.js:104
+msgid "There are no lessons today."
+msgstr "Keine Stunden heute."
+
+#: ../qml/webUntisRequests.js:183
+msgid "No username set. Go to settings to set one."
+msgstr "Kein Benutzername gesetzt. Gehe in die Einstellungen um einen zu setzen."
+
+#: ../qml/webUntisRequests.js:186
+msgid "No password set. Go to settings to set one."
+msgstr "Kein Passwort gesetzt. Gehe in die Einstellungen um eines zu setzen."
+
+#: ../qml/webUntisRequests.js:189
+msgid "No school set. Go to settings to set one."
+msgstr "Keine Schule gesetzt. Gehe in die Einstellungen um eine zu setzen."
+
+#: ../qml/webUntisRequests.js:192
+msgid "No server set. Go to settings to set one."
+msgstr "Kein Server gesetzt. Gehe in die Einstellungen um einen zu setzen."
+
+

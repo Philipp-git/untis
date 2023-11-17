@@ -1,0 +1,5 @@
+/build/
+/.clickable/
+.vscode/
+CMakeLists.txt.user
+CMakeLists.txt.user.shared
