@@ -19,15 +19,15 @@ import Qt.labs.settings 1.1
 import Lomiri.Components 1.3
 import Lomiri.Components.Popups 1.3
 
-import "webUntisRequests.js" as UntisRequest
+import "webUntisRequests.js" as Untis
 
-//TODO About Dialog
-//TODO Reliable and readable untisRequest
+//TODO: About Dialog
 MainView {
     id: root
     objectName: 'mainView'
     applicationName: 'untis.philipp'
     automaticOrientation: true
+    //TODO: Light mode
     theme.name: "Lomiri.Components.Themes.SuruDark"
     width: units.gu(45)
     height: units.gu(75)
@@ -45,18 +45,13 @@ MainView {
     property bool showTimestamp: true
     property bool startupRequest: true
 
-    //TODO: put into js
-    property string sessionId: ""
-    property string personType: ""
-    property string personId: ""
-    property string klasseId: ""
-
     property string rooms: ""
     property string subjects: ""
     property string klassen: ""
     property string teacher: ""
     property string statusData: ""
 
+    property bool loading: false
     Settings {
         id: settings
         property alias server: root.server
@@ -77,18 +72,19 @@ MainView {
         property alias statusDate: root.statusData
     }
 
+    ListModel {
+        id: periodsModel
+    }
+
     Component {
         id: dialogComponent
         SettingsDialog {}
     }
 
-    ListModel {
-        id: periodsModel
-    }
-
     Action {
         id: previousDayAction
         iconName: "previous"
+        enabled: !loading
         text: i18n.tr("Previous day")
         description: i18n.tr("Go to the previous day.")
         onTriggered: {
@@ -102,6 +98,7 @@ MainView {
     Action {
         id: nextDayAction
         iconName: "next"
+        enabled: !loading
         text: i18n.tr("Next day")
         description: i18n.tr("Go to the next day.")
         onTriggered: {
@@ -109,7 +106,7 @@ MainView {
             date.setDate(date.getDate() + 1)
             selectedDate = date
             periodsModel.clear()
-            UntisRequest.getDay()
+            Untis.getDay()
         }
     }
     Action {
@@ -186,7 +183,6 @@ MainView {
             }
             model: periodsModel
             delegate: Lesson {}
-
             function listModelSort(listModel, compareFunction) {
                 let indexes = [...Array(listModel.count).keys()]
                 indexes.sort((a, b) => compareFunction(listModel.get(a),

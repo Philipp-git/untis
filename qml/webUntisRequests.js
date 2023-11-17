@@ -1,4 +1,10 @@
 let id = 0
+
+let sessionId = ""
+let personType = ""
+let personId = ""
+let klasseId = ""
+
 function getId() {
     return id++
 }
@@ -172,22 +178,21 @@ function sendRequest(method, params){
     return promise
 }
 
-//TODO: 0/1 -> true/false
 function isDataProvided(){
     if (user === "") {
-        log(i18n.tr("No username set"))
-        return 1
+        log(i18n.tr("No username set. Go to settings to set one."))
+        return false
     }if (password === "") {
-        log(i18n.tr("No password set"))
-        return 1
+        log(i18n.tr("No password set. Go to settings to set one."))
+        return false
     }if (school === "") {
-        log(i18n.tr("No school set"))
-        return 1
+        log(i18n.tr("No school set. Go to settings to set one."))
+        return false
     }if (server === "") {
-        log(i18n.tr("No server set"))
-        return 1
+        log(i18n.tr("No server set. Go to settings to set one."))
+        return false
     }
-    return 0
+    return true
 }
 
 function logout(attempt = 0){
@@ -204,16 +209,20 @@ function logout(attempt = 0){
                 log("Logout done!")
             },
             function (error){
-                console.log("error:" + error)
+                log("error:" + error + "attempt: " + attempt)
                 logout(attempt)
             })
     }
 }
 
+
+
 function getDay(){
-    if (isDataProvided() === 1){
+    if (isDataProvided() !== true){
+        //TODO: log message
         return
     }
+    loading = true;
     loadOtherData().then(
         function(){
             sendRequest("authenticate", getLoginParams()).then(
@@ -233,18 +242,23 @@ function getDay(){
                             if (showTimestamp) {
                                 timestampLabel.text = new Date().toLocaleString(Locale.ShortFormat)
                             }
-                            logout()},
+                            logout()
+                            loading = false
+                        },
                         function (error){
                             console.log(error)
+                            loading = false
                             logout()
                         }
                     )},
                 function (error){
                     console.log(error)
+                    loading = false
                 })
         },
         function (error){
             log("Fetching cache failed")
+            loading = false
         })
 }
 
