@@ -92,7 +92,7 @@ MainView {
             date.setDate(date.getDate() - 1)
             selectedDate = date
             periodsModel.clear()
-            UntisRequest.getDay()
+            Untis.getDay()
         }
     }
     Action {
@@ -121,7 +121,7 @@ MainView {
         iconName: "edit-clear"
         text: i18n.tr("Clear cache")
         description: i18n.tr("Delete the cached data.")
-        onTriggered: UntisRequest.clearOtherData()
+        onTriggered: Untis.clearOtherData()
     }
     Action {
         id: reloadDayAction
@@ -130,7 +130,7 @@ MainView {
         description: i18n.tr("Reload the current day.")
         onTriggered: {
             periodsModel.clear()
-            UntisRequest.getDay()
+            Untis.getDay()
         }
     }
     Action {
@@ -140,7 +140,7 @@ MainView {
         description: i18n.tr(
                          "Fetch the cache manually (could help when bugs appear).")
         onTriggered: {
-            UntisRequest.loadOtherData()
+            Untis.loadOtherData()
         }
     }
 
@@ -269,7 +269,7 @@ MainView {
     }
     Component.onCompleted: {
         if (startupRequest) {
-            UntisRequest.getDay()
+            Untis.getDay()
         }
     }
 }
