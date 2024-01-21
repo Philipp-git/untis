@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: untis.philipp\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-19 22:52+0100\n"
+"POT-Creation-Date: 2024-01-20 19:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,26 +146,14 @@ msgstr ""
 msgid "Log enabled"
 msgstr ""
 
-#: ../qml/webUntisRequests.js:27
+#: ../qml/webUntisRequests.js:63
 msgid "NO MATCH"
 msgstr ""
 
-#: ../qml/webUntisRequests.js:104
+#: ../qml/webUntisRequests.js:140
 msgid "There are no lessons today."
 msgstr ""
 
-#: ../qml/webUntisRequests.js:183
-msgid "No username set. Go to settings to set one."
-msgstr ""
-
-#: ../qml/webUntisRequests.js:186
-msgid "No password set. Go to settings to set one."
-msgstr ""
-
-#: ../qml/webUntisRequests.js:189
-msgid "No school set. Go to settings to set one."
-msgstr ""
-
-#: ../qml/webUntisRequests.js:192
-msgid "No server set. Go to settings to set one."
+#: ../qml/webUntisRequests.js:205
+msgid "Acount data not set. Go to settings to set one."
 msgstr ""

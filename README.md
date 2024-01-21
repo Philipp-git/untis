@@ -1,6 +1,9 @@
 # Untis
 
-See your WebUntis timetable in a native app.
+See your WebUntis timetable in a native app. It uses [WebUntis JSON-RPC API](https://untis-sr.ch/wp-content/uploads/2019/11/2018-09-20-WebUntis_JSON_RPC_API.pdf)
+## How to find the server and school
+
+Go to webuntis.com and select your school. This will redirect you to the correct server (xxxx.webuntis.com) and the school should be visible as a URL parameter (?school=your-school).
 
 ## License
 

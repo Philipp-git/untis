@@ -5,15 +5,46 @@ let personType = ""
 let personId = ""
 let klasseId = ""
 
-function getId() {
-    return id++
+function log(msg) {
+    if (showLog) {logLabel.text = msg}
+    console.log(msg)
 }
 
-function log(msg) {
-    if (showLog) {
-        logLabel.text = msg
-    }
-    console.log(msg)
+function sendRequest(method, params){
+    return new Promise(function(resolve, reject){
+        //Skip request when already logged in
+        //TODO: The sendRequest should not even be called when already logged in
+        if (sessionId !== "" && method === "authenticate"){
+            resolve({
+                sessionId: sessionId,
+                personType: personType,
+                personId: personId})
+            return
+        }
+
+        const request = new XMLHttpRequest()
+        request.open("POST", serverUrl, true)
+        request.setRequestHeader("Content-Type", "application/json");
+        if (sessionId !== "") request.setRequestHeader("JSESSIONID", sessionId)
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE) {
+                if (request.status && request.status === 200) {
+                    const result = JSON.parse(request.responseText)
+                    if (result.error) {
+                        reject("API Error: " + result.error.message)
+                    } else {
+                        resolve(result.result)
+                    }
+                } else {
+                    reject("HTTP Error: " + request.status + request.statusText)
+                }
+            }
+        }
+        const data = JSON.stringify({id: id++, method: method, params: params, jsonrpc: "2.0"})
+        if (method === "authenticate") log("SEND {authentication data}")
+        else log("SEND " + data)
+        request.send(data)
+    })
 }
 
 function iterateOver(id, Obj) {
@@ -140,86 +171,31 @@ function getLoginParams(){
     }
 }
 
-function sendRequest(method, params){
-    let promise = new Promise(function(resolve, reject){
-        //Skip request when already logged in
-        //TODO: The sendRequest should not even be called when already logged in
-        if (sessionId !== "" && method === "authenticate"){
-            resolve({
-                sessionId: sessionId,
-                personType: personType,
-                personId: personId})
-            return
-        }
-
-        const request = new XMLHttpRequest()
-        request.open("POST", serverUrl, true)
-        request.setRequestHeader("Content-Type", "application/json");
-        if (sessionId !== "") request.setRequestHeader("JSESSIONID", sessionId)
-        request.onreadystatechange = function () {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status && request.status === 200) {
-                    const result = JSON.parse(request.responseText)
-                    if (result.error) {
-                        reject("API Error: " + result.error.message)
-                    } else {
-                        resolve(result.result)
-                    }
-                } else {
-                    reject("HTTP Error: " + request.status + request.statusText)
-                }
-            }
-        }
-        const data = JSON.stringify({id: getId(), method: method, params: params, jsonrpc: "2.0"})
-        if (method === "authenticate") log("SEND {authentication data}")
-        else log("SEND " + data)
-        request.send(data)
-    })
-    return promise
-}
-
 function isDataProvided(){
-    if (user === "") {
-        log(i18n.tr("No username set. Go to settings to set one."))
-        return false
-    }if (password === "") {
-        log(i18n.tr("No password set. Go to settings to set one."))
-        return false
-    }if (school === "") {
-        log(i18n.tr("No school set. Go to settings to set one."))
-        return false
-    }if (server === "") {
-        log(i18n.tr("No server set. Go to settings to set one."))
-        return false
-    }
-    return true
+    return !(user === "" && password == "" && school == "" && server == "")
 }
 
 function logout(attempt = 0){
     if (attempt <= 3){
-        attempt++
-        if (sessionId === ""){
-            return
+        if (sessionId != ""){
+            sendRequest("logout", "{}").then(
+                function (result) {
+                    sessionId = ""
+                    personType = ""
+                    personId = ""
+                    log("Logout done!")
+                },
+                function (error){
+                    log("error: " + error + " attempt: " + attempt)
+                    logout(++attempt)
+                })
         }
-        sendRequest("logout", "{}").then(
-            function (result) {
-                sessionId = ""
-                personType = ""
-                personId = ""
-                log("Logout done!")
-            },
-            function (error){
-                log("error:" + error + "attempt: " + attempt)
-                logout(attempt)
-            })
     }
 }
 
-
-
 function getDay(){
     if (isDataProvided() !== true){
-        //TODO: log message
+        log(i18n.tr("Acount data not set. Go to settings to set one."))
         return
     }
     loading = true;
@@ -263,7 +239,7 @@ function getDay(){
 }
 
 function loadOtherData() {
-    let promise = new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject){
         sendRequest("authenticate", getLoginParams()).then(
             function (result){
                 sessionId = result.sessionId
@@ -312,7 +288,6 @@ function loadOtherData() {
                 reject(error)
             })
     })
-    return promise
 }
 
 function clearOtherData() {
